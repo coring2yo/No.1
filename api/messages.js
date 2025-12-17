@@ -51,6 +51,15 @@ export default async function handler(req, res) {
     }
 
     try {
+        // Check if database environment variables are set
+        if (!process.env.POSTGRES_URL) {
+            console.error('POSTGRES_URL environment variable is not set');
+            return res.status(500).json({
+                error: 'Database configuration error',
+                message: 'Database environment variables are not configured'
+            });
+        }
+
         // Initialize database on first request
         await initDatabase();
 
@@ -67,9 +76,11 @@ export default async function handler(req, res) {
         return res.status(405).json({ error: 'Method not allowed' });
     } catch (error) {
         console.error('API error:', error);
+        console.error('Error stack:', error.stack);
         return res.status(500).json({
             error: 'Internal server error',
-            message: error.message
+            message: error.message,
+            details: process.env.NODE_ENV === 'development' ? error.stack : undefined
         });
     }
 }
