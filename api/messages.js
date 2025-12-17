@@ -6,8 +6,13 @@ const pool = createPool({
     connectionString: process.env.POSTGRES_PRISMA_URL
 });
 
+// Track if database has been initialized
+let dbInitialized = false;
+
 // Initialize database
 async function initDatabase() {
+    if (dbInitialized) return;
+
     try {
         await pool.sql`
       CREATE TABLE IF NOT EXISTS messages (
@@ -21,6 +26,7 @@ async function initDatabase() {
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `;
+        dbInitialized = true;
         console.log('Database initialized successfully');
     } catch (error) {
         console.error('Database initialization error:', error);
@@ -58,8 +64,8 @@ export default async function handler(req, res) {
 
     try {
         // Check if database environment variables are set
-        if (!process.env.POSTGRES_URL) {
-            console.error('POSTGRES_URL environment variable is not set');
+        if (!process.env.POSTGRES_PRISMA_URL && !process.env.POSTGRES_URL) {
+            console.error('Database environment variables are not set');
             return res.status(500).json({
                 error: 'Database configuration error',
                 message: 'Database environment variables are not configured'
