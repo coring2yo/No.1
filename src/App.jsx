@@ -8,17 +8,12 @@ function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingMessage, setEditingMessage] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Load messages and current user from localStorage on mount
+  // Load messages from API and current user from localStorage on mount
   useEffect(() => {
-    const saved = localStorage.getItem('rolling_paper_messages');
-    if (saved) {
-      try {
-        setMessages(JSON.parse(saved));
-      } catch (e) {
-        console.error('Failed to load messages', e);
-      }
-    }
+    fetchMessages();
 
     const savedUser = localStorage.getItem('rolling_paper_current_user');
     if (savedUser) {
@@ -26,27 +21,78 @@ function App() {
     }
   }, []);
 
-  // Save messages to localStorage whenever they change
-  useEffect(() => {
-    localStorage.setItem('rolling_paper_messages', JSON.stringify(messages));
-  }, [messages]);
-
-  const addMessage = (newMessage) => {
-    // Set current user if not already set
-    if (!currentUser) {
-      setCurrentUser(newMessage.author);
-      localStorage.setItem('rolling_paper_current_user', newMessage.author);
+  const fetchMessages = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch('/api/messages');
+      if (!response.ok) throw new Error('Failed to fetch messages');
+      const data = await response.json();
+      setMessages(data);
+      setError(null);
+    } catch (err) {
+      console.error('Error fetching messages:', err);
+      setError('메시지를 불러오는데 실패했습니다.');
+    } finally {
+      setLoading(false);
     }
-    setMessages((prev) => [newMessage, ...prev]);
   };
 
-  const updateMessage = (updatedMessage) => {
-    setMessages((prev) => prev.map(msg => msg.id === updatedMessage.id ? updatedMessage : msg));
+  const addMessage = async (newMessage) => {
+    try {
+      // Set current user if not already set
+      if (!currentUser) {
+        setCurrentUser(newMessage.author);
+        localStorage.setItem('rolling_paper_current_user', newMessage.author);
+      }
+
+      const response = await fetch('/api/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newMessage),
+      });
+
+      if (!response.ok) throw new Error('Failed to create message');
+
+      const createdMessage = await response.json();
+      setMessages((prev) => [createdMessage, ...prev]);
+    } catch (err) {
+      console.error('Error creating message:', err);
+      alert('메시지 생성에 실패했습니다.');
+    }
   };
 
-  const deleteMessage = (id) => {
-    if (window.confirm('정말 삭제하시겠습니까?')) {
+  const updateMessage = async (updatedMessage) => {
+    try {
+      const response = await fetch(`/api/messages/${updatedMessage.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedMessage),
+      });
+
+      if (!response.ok) throw new Error('Failed to update message');
+
+      const updated = await response.json();
+      setMessages((prev) => prev.map(msg => msg.id === updated.id ? updated : msg));
+    } catch (err) {
+      console.error('Error updating message:', err);
+      alert('메시지 수정에 실패했습니다.');
+    }
+  };
+
+  const deleteMessage = async (id) => {
+    if (!window.confirm('정말 삭제하시겠습니까?')) return;
+
+    try {
+      const response = await fetch(`/api/messages/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) throw new Error('Failed to delete message');
+
       setMessages((prev) => prev.filter(msg => msg.id !== id));
+    } catch (err) {
+      console.error('Error deleting message:', err);
+      alert('메시지 삭제에 실패했습니다.');
     }
   };
 
@@ -67,6 +113,30 @@ function App() {
       addMessage(messageData);
     }
   };
+
+  if (loading) {
+    return (
+      <div className="app-container">
+        <div style={{ textAlign: 'center', padding: '60px', color: '#fff' }}>
+          로딩 중...
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="app-container">
+        <div style={{ textAlign: 'center', padding: '60px', color: '#fff' }}>
+          {error}
+          <br />
+          <button onClick={fetchMessages} style={{ marginTop: '20px' }}>
+            다시 시도
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="app-container">
