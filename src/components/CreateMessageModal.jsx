@@ -1,15 +1,25 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import './CreateMessageModal.css';
 
 const COLORS = ['#ffffff', '#fff3cd', '#d4edda', '#f8d7da', '#d1ecf1', '#e2e3e5'];
 
-const CreateMessageModal = ({ onClose, onSubmit }) => {
+const CreateMessageModal = ({ onClose, onSubmit, initialData = null }) => {
     const [recipient, setRecipient] = useState('');
     const [author, setAuthor] = useState('');
     const [text, setText] = useState('');
     const [color, setColor] = useState(COLORS[0]);
     const [image, setImage] = useState(null);
     const fileInputRef = useRef(null);
+
+    useEffect(() => {
+        if (initialData) {
+            setRecipient(initialData.recipient || '');
+            setAuthor(initialData.author || '');
+            setText(initialData.text || '');
+            setColor(initialData.color || COLORS[0]);
+            setImage(initialData.image || null);
+        }
+    }, [initialData]);
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -26,17 +36,17 @@ const CreateMessageModal = ({ onClose, onSubmit }) => {
         e.preventDefault();
         if (!text.trim() || !author.trim() || !recipient.trim()) return;
 
-        const newMessage = {
-            id: Date.now(),
+        const messageData = {
+            id: initialData ? initialData.id : Date.now(),
             text,
             recipient,
             author,
             color,
             image,
-            timestamp: Date.now(),
+            timestamp: initialData ? initialData.timestamp : Date.now(),
         };
 
-        onSubmit(newMessage);
+        onSubmit(messageData);
         onClose();
     };
 
@@ -44,7 +54,7 @@ const CreateMessageModal = ({ onClose, onSubmit }) => {
         <div className="modal-overlay" onClick={onClose}>
             <div className="modal-content glass-panel" onClick={(e) => e.stopPropagation()}>
                 <div className="modal-header">
-                    <h2>새 메시지 작성</h2>
+                    <h2>{initialData ? '메시지 수정' : '새 메시지 작성'}</h2>
                     <button className="close-btn" onClick={onClose}>&times;</button>
                 </div>
 
@@ -128,7 +138,7 @@ const CreateMessageModal = ({ onClose, onSubmit }) => {
                     </div>
 
                     <div className="modal-actions">
-                        <button type="submit" className="submit-btn">등록하기</button>
+                        <button type="submit" className="submit-btn">{initialData ? '수정하기' : '등록하기'}</button>
                     </div>
                 </form>
             </div>

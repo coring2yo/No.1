@@ -1,8 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Nanum+Pen+Script&display=swap');
 
+@font-face {
+  font-family: 'YFavorite';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/YOnepickTTF-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'YFavorite';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/YOnepickTTF-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+}
+
 :root {
   --font-main: 'Noto Sans KR', sans-serif;
   --font-hand: 'Nanum Pen Script', cursive;
+  --font-favorite: 'YFavorite', sans-serif;
 
   --bg-gradient: linear-gradient(180deg, #89f7fe 0%, #66a6ff 100%);
   --accent-color: #6a11cb;

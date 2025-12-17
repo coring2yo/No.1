@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import MessageCard from './MessageCard';
 import './Board.css';
 
-const Board = ({ messages }) => {
+const Board = ({ messages, onDelete, onEdit }) => {
     // Memoize the random positions to prevent re-calculation on every render
     // unless messages change significantly.
     // Note: If you want truly persistent positions for existing messages when new ones are added,
@@ -13,7 +13,7 @@ const Board = ({ messages }) => {
         return messages.map((msg) => ({
             ...msg,
             style: {
-                left: `${Math.random() * 80 + 5}%`, // Random position 5% to 85%
+                left: `max(20px, calc(${Math.random()} * (100% - 320px)))`, // Ensure it fits within width - 320px (card width + margins)
                 animationDuration: `${Math.random() * 15 + 15}s`, // 15-30s duration
                 animationDelay: `-${Math.random() * 20}s`, // Start at random points in the cycle
             }
@@ -36,7 +36,11 @@ const Board = ({ messages }) => {
                     className="floating-item"
                     style={msg.style}
                 >
-                    <MessageCard message={msg} />
+                    <MessageCard
+                        message={msg}
+                        onDelete={onDelete}
+                        onEdit={onEdit}
+                    />
                 </div>
             ))}
         </div>

@@ -64,3 +64,48 @@
 .author {
     font-weight: 700;
 }
+
+/* Action Buttons */
+.card-actions {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: flex;
+    gap: 6px;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+    z-index: 10;
+}
+
+.message-card:hover .card-actions {
+    opacity: 1;
+}
+
+.action-btn {
+    background: rgba(255, 255, 255, 0.85);
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    transition: transform 0.1s, background 0.1s;
+    backdrop-filter: blur(4px);
+}
+
+.action-btn:hover {
+    transform: scale(1.1);
+    background: white;
+}
+
+.action-btn.delete-btn {
+    color: #e74c3c;
+}
+
+.action-btn.edit-btn {
+    color: #3498db;
+}
