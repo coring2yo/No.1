@@ -1,8 +1,9 @@
 import { createPool } from '@vercel/postgres';
 
 // Create a pool using the pooled connection string
+// POSTGRES_PRISMA_URL is the pooled connection, POSTGRES_URL is direct connection
 const pool = createPool({
-    connectionString: process.env.POSTGRES_URL || process.env.POSTGRES_PRISMA_URL
+    connectionString: process.env.POSTGRES_PRISMA_URL
 });
 
 // Initialize database
