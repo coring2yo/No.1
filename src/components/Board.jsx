@@ -21,11 +21,7 @@ const Board = ({ messages, onDelete, onEdit, currentUser }) => {
     }, [messages]);
 
     if (!messages || messages.length === 0) {
-        return (
-            <div className="empty-board">
-                <p>아직 메시지가 없어요. 첫 번째 풍선을 띄워보세요! 🎈</p>
-            </div>
-        );
+        return <div className="board-sky"></div>;
     }
 
     return (
