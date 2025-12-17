@@ -1,14 +1,8 @@
-import { createPool } from '@vercel/postgres';
-
-// Create a pool using the pooled connection string
-// POSTGRES_PRISMA_URL is the pooled connection, POSTGRES_URL is direct connection
-const pool = createPool({
-    connectionString: process.env.POSTGRES_PRISMA_URL
-});
+import { sql } from '@vercel/postgres';
 
 async function updateMessage(id, message) {
     const { text, recipient, author, color, image } = message;
-    const { rows } = await pool.sql`
+    const { rows } = await sql`
     UPDATE messages
     SET text = ${text}, recipient = ${recipient}, author = ${author},
         color = ${color}, image = ${image}
@@ -19,7 +13,7 @@ async function updateMessage(id, message) {
 }
 
 async function deleteMessage(id) {
-    await pool.sql`DELETE FROM messages WHERE id = ${id}`;
+    await sql`DELETE FROM messages WHERE id = ${id}`;
     return { success: true };
 }
 

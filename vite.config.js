@@ -7,8 +7,9 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:3000',
+        target: 'https://no-1-rust.vercel.app',
         changeOrigin: true,
+        secure: true,
       }
     }
   }

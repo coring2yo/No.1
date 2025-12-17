@@ -1,10 +1,4 @@
-import { createPool } from '@vercel/postgres';
-
-// Create a pool using the pooled connection string
-// POSTGRES_PRISMA_URL is the pooled connection, POSTGRES_URL is direct connection
-const pool = createPool({
-    connectionString: process.env.POSTGRES_PRISMA_URL
-});
+import { sql } from '@vercel/postgres';
 
 // Track if database has been initialized
 let dbInitialized = false;
@@ -14,7 +8,7 @@ async function initDatabase() {
     if (dbInitialized) return;
 
     try {
-        await pool.sql`
+        await sql`
       CREATE TABLE IF NOT EXISTS messages (
         id SERIAL PRIMARY KEY,
         text TEXT NOT NULL,
@@ -35,13 +29,13 @@ async function initDatabase() {
 }
 
 async function getAllMessages() {
-    const { rows } = await pool.sql`SELECT * FROM messages ORDER BY timestamp DESC`;
+    const { rows } = await sql`SELECT * FROM messages ORDER BY timestamp DESC`;
     return rows;
 }
 
 async function createMessage(message) {
     const { text, recipient, author, color, image, timestamp } = message;
-    const { rows } = await pool.sql`
+    const { rows } = await sql`
     INSERT INTO messages (text, recipient, author, color, image, timestamp)
     VALUES (${text}, ${recipient}, ${author}, ${color}, ${image}, ${timestamp})
     RETURNING *
@@ -63,15 +57,6 @@ export default async function handler(req, res) {
     }
 
     try {
-        // Check if database environment variables are set
-        if (!process.env.POSTGRES_PRISMA_URL && !process.env.POSTGRES_URL) {
-            console.error('Database environment variables are not set');
-            return res.status(500).json({
-                error: 'Database configuration error',
-                message: 'Database environment variables are not configured'
-            });
-        }
-
         // Initialize database on first request
         await initDatabase();
 
