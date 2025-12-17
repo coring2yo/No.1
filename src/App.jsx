@@ -7,8 +7,9 @@ function App() {
   const [messages, setMessages] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingMessage, setEditingMessage] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
 
-  // Load messages from localStorage on mount
+  // Load messages and current user from localStorage on mount
   useEffect(() => {
     const saved = localStorage.getItem('rolling_paper_messages');
     if (saved) {
@@ -18,6 +19,11 @@ function App() {
         console.error('Failed to load messages', e);
       }
     }
+
+    const savedUser = localStorage.getItem('rolling_paper_current_user');
+    if (savedUser) {
+      setCurrentUser(savedUser);
+    }
   }, []);
 
   // Save messages to localStorage whenever they change
@@ -26,6 +32,11 @@ function App() {
   }, [messages]);
 
   const addMessage = (newMessage) => {
+    // Set current user if not already set
+    if (!currentUser) {
+      setCurrentUser(newMessage.author);
+      localStorage.setItem('rolling_paper_current_user', newMessage.author);
+    }
     setMessages((prev) => [newMessage, ...prev]);
   };
 
@@ -55,11 +66,6 @@ function App() {
     } else {
       addMessage(messageData);
     }
-    setIsModalOpen(false); // Close here to avoid prop drilling close logic if not needed, but CreateMessageModal calls onClose. 
-    // Wait, CreateMessageModal calls onClose AFTER onSubmit.
-    // Actually CreateMessageModal calls onSubmit then onClose.
-    // So here I just handle the data. The closing is handled by the modal's internal logic calling the onClose prop.
-    // But wait, "onClose={() => setIsModalOpen(false)}" is passed.
   };
 
   return (
@@ -79,6 +85,7 @@ function App() {
           messages={messages}
           onDelete={deleteMessage}
           onEdit={handleOpenEditModal}
+          currentUser={currentUser}
         />
       </main>
 

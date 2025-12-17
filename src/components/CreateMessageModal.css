@@ -33,8 +33,12 @@
 }
 
 .modal-header h2 {
+    font-family: var(--font-favorite);
     font-size: 1.5rem;
-    color: var(--text-primary);
+    background: linear-gradient(90deg, #ff69b4, #87ceeb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .close-btn {
@@ -51,8 +55,12 @@
 .form-group label {
     display: block;
     margin-bottom: 8px;
-    font-weight: 600;
-    color: var(--text-primary);
+    font-family: var(--font-favorite);
+    font-weight: 700;
+    background: linear-gradient(90deg, #ff69b4, #87ceeb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     font-size: 0.9rem;
 }
 
@@ -137,12 +145,12 @@
 .submit-btn {
     width: 100%;
     padding: 14px;
-    background: var(--accent-gradient);
+    background: linear-gradient(90deg, #ff69b4, #87ceeb);
     color: white;
     border-radius: 8px;
     font-size: 1.1rem;
     font-weight: 700;
-    box-shadow: 0 4px 15px rgba(106, 17, 203, 0.3);
+    box-shadow: 0 4px 15px rgba(255, 105, 180, 0.3);
 }
 
 .submit-btn:hover {

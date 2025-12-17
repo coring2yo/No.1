@@ -21,19 +21,22 @@
   font-family: var(--font-favorite);
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--text-primary);
+  background: linear-gradient(90deg, #ff69b4, #87ceeb);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   letter-spacing: -0.5px;
 }
 
 .add-btn {
   font-family: var(--font-favorite);
-  background: var(--accent-gradient);
+  background: linear-gradient(90deg, #ff69b4, #87ceeb);
   color: white;
   padding: 10px 20px;
   border-radius: 20px;
   font-weight: 600;
   transition: transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 4px 15px rgba(106, 17, 203, 0.4);
+  box-shadow: 0 4px 15px rgba(255, 105, 180, 0.4);
 }
 
 .add-btn:hover {
