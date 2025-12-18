@@ -26,9 +26,6 @@ const MyMessagesModal = ({ onClose, messages, currentUser, onEdit, onDelete }) =
                                 <div className="message-preview">
                                     <div className="message-header-info">
                                         <span className="to-label">To. {message.recipient}</span>
-                                        <span className="date">
-                                            {new Date(message.timestamp).toLocaleDateString('ko-KR')}
-                                        </span>
                                     </div>
                                     <p className="message-content" style={{ color: message.color || '#555' }}>
                                         {message.text}
@@ -42,7 +39,7 @@ const MyMessagesModal = ({ onClose, messages, currentUser, onEdit, onDelete }) =
                                             onClose();
                                         }}
                                     >
-                                        ✏️ 수정
+                                        수정
                                     </button>
                                     <button
                                         className="delete-btn-small"
@@ -52,7 +49,7 @@ const MyMessagesModal = ({ onClose, messages, currentUser, onEdit, onDelete }) =
                                             }
                                         }}
                                     >
-                                        🗑️ 삭제
+                                        삭제
                                     </button>
                                 </div>
                             </div>

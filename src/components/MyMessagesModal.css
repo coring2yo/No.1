@@ -145,16 +145,16 @@
 
 .edit-btn-small,
 .delete-btn-small {
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-size: 0.9rem;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 0.95rem;
     font-family: var(--font-favorite);
     font-weight: 600;
     border: none;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: transform 0.2s, box-shadow 0.2s;
     white-space: nowrap;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .edit-btn-small {
@@ -163,8 +163,8 @@
 }
 
 .edit-btn-small:hover {
-    box-shadow: 0 4px 10px rgba(135, 206, 235, 0.4);
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(106, 17, 203, 0.4);
 }
 
 .delete-btn-small {
@@ -173,8 +173,8 @@
 }
 
 .delete-btn-small:hover {
-    box-shadow: 0 4px 10px rgba(255, 105, 180, 0.4);
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 105, 180, 0.4);
 }
 
 .modal-header {
