@@ -21,13 +21,16 @@ function App() {
 
   const fetchUserIP = async () => {
     try {
-      const response = await fetch('/api/get-ip');
-      if (response.ok) {
-        const data = await response.json();
-        setCurrentUser(data.ip);
+      // Generate or retrieve unique browser ID
+      let browserId = localStorage.getItem('browserId');
+      if (!browserId) {
+        // Create unique ID based on timestamp and random number
+        browserId = `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+        localStorage.setItem('browserId', browserId);
       }
+      setCurrentUser(browserId);
     } catch (err) {
-      console.error('Error fetching IP:', err);
+      console.error('Error setting user ID:', err);
     }
   };
 
