@@ -11,13 +11,15 @@ export default async function handler(req, res) {
     }
 
     if (req.method === 'GET') {
-        // Get IP address from request headers
-        const ip = req.headers['x-forwarded-for']?.split(',')[0] ||
-                   req.headers['x-real-ip'] ||
-                   req.connection?.remoteAddress ||
-                   req.socket?.remoteAddress ||
-                   'unknown';
+        // Get IP address from request headers (Vercel format)
+        const forwarded = req.headers['x-forwarded-for'];
+        const ip = forwarded
+            ? forwarded.split(',')[0].trim()
+            : req.headers['x-real-ip'] ||
+              req.socket?.remoteAddress ||
+              'unknown';
 
+        console.log('IP detected:', ip);
         return res.status(200).json({ ip });
     }
 
