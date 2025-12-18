@@ -49,8 +49,15 @@
 .close-btn {
     background: none;
     font-size: 2rem;
-    color: var(--text-secondary);
+    color: #ff69b4;
     line-height: 1;
+    cursor: pointer;
+    border: none;
+    transition: color 0.2s;
+}
+
+.close-btn:hover {
+    color: #ff1493;
 }
 
 .form-group {

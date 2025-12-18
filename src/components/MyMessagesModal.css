@@ -177,6 +177,36 @@
     transform: translateY(-1px);
 }
 
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.modal-header h2 {
+    font-family: var(--font-favorite);
+    font-size: 1.5rem;
+    background: linear-gradient(90deg, #ff69b4, #87ceeb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.close-btn {
+    background: none;
+    font-size: 2rem;
+    color: #ff69b4;
+    line-height: 1;
+    cursor: pointer;
+    border: none;
+    transition: color 0.2s;
+}
+
+.close-btn:hover {
+    color: #ff1493;
+}
+
 /* 반응형 디자인 */
 @media (max-width: 600px) {
     .message-item {
