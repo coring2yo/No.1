@@ -1,15 +1,18 @@
 import { useState } from 'react';
 import './MessageCard.css';
-import ImageViewer from './ImageViewer';
+import MessageViewer from './MessageViewer';
 
 const MessageCard = ({ message, onDelete, onEdit, currentUser }) => {
     const { text, author, image, color } = message;
-    const isAuthor = currentUser && currentUser === author;
-    const [isImageViewerOpen, setIsImageViewerOpen] = useState(false);
+    const [isViewerOpen, setIsViewerOpen] = useState(false);
+
+    const handleCardClick = () => {
+        setIsViewerOpen(true);
+    };
 
     return (
         <>
-            <div className="message-card animate-fade-in">
+            <div className="message-card animate-fade-in" onClick={handleCardClick}>
                 <div className="balloon-background">
                     <img src="/heart-balloon.png" alt="heart balloon" className="balloon-image" />
                 </div>
@@ -20,7 +23,7 @@ const MessageCard = ({ message, onDelete, onEdit, currentUser }) => {
                     </p>
 
                     {image && (
-                        <div className="message-image-container" onClick={() => setIsImageViewerOpen(true)}>
+                        <div className="message-image-container">
                             <img src={image} alt="uploaded" className="message-image" />
                         </div>
                     )}
@@ -33,10 +36,10 @@ const MessageCard = ({ message, onDelete, onEdit, currentUser }) => {
                 </div>
             </div>
 
-            {isImageViewerOpen && (
-                <ImageViewer
-                    image={image}
-                    onClose={() => setIsImageViewerOpen(false)}
+            {isViewerOpen && (
+                <MessageViewer
+                    message={message}
+                    onClose={() => setIsViewerOpen(false)}
                 />
             )}
         </>

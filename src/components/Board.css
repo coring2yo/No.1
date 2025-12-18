@@ -1,23 +1,27 @@
 .board-sky {
     position: relative;
-    width: 100%;
+    width: 100vw;
     height: 80vh;
     /* Occupy most of the screen */
     overflow: hidden;
     /* Hide bubbles when they go off-screen */
     /* No more columns/masonry */
+    margin-left: calc(-50vw + 50%);
 }
 
 .floating-item {
     position: absolute;
     bottom: -400px;
     /* Start below the screen */
-    width: 280px;
+    width: 400px;
     max-width: 85vw;
     /* Fixed width for bubbles */
     animation-name: floatUp;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
+    pointer-events: auto;
+    cursor: pointer;
+    transform: translateX(-50%);
 
     /* Add a slight wiggle for more realism (optional) */
     /* animation-name: floatUp, wiggle; */
