@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import Board from './components/Board';
 import CreateMessageModal from './components/CreateMessageModal';
+import MyMessagesModal from './components/MyMessagesModal';
 import './App.css';
 
 function App() {
   const [messages, setMessages] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isMyMessagesModalOpen, setIsMyMessagesModalOpen] = useState(false);
   const [editingMessage, setEditingMessage] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -142,12 +144,22 @@ function App() {
     <div className="app-container">
       <header className="app-header glass-panel">
         <h1>1인 창업가 개발부트캠프 No.1기의 소중한 Rolling Paper</h1>
-        <button
-          className="add-btn"
-          onClick={handleOpenCreateModal}
-        >
-          + 메시지 남기기
-        </button>
+        <div className="header-buttons">
+          <button
+            className="add-btn"
+            onClick={handleOpenCreateModal}
+          >
+            + 메시지 남기기
+          </button>
+          {currentUser && (
+            <button
+              className="my-messages-btn"
+              onClick={() => setIsMyMessagesModalOpen(true)}
+            >
+              내 메시지
+            </button>
+          )}
+        </div>
       </header>
 
       <main className="main-board">
@@ -164,6 +176,16 @@ function App() {
           onClose={() => setIsModalOpen(false)}
           onSubmit={handleModalSubmit}
           initialData={editingMessage}
+        />
+      )}
+
+      {isMyMessagesModalOpen && (
+        <MyMessagesModal
+          onClose={() => setIsMyMessagesModalOpen(false)}
+          messages={messages}
+          currentUser={currentUser}
+          onEdit={handleOpenEditModal}
+          onDelete={deleteMessage}
         />
       )}
     </div>

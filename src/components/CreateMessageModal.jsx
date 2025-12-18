@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import './CreateMessageModal.css';
 
-const COLORS = ['#ffffff', '#fff3cd', '#d4edda', '#f8d7da', '#d1ecf1', '#e2e3e5'];
+const COLORS = ['#FFFFFF', '#FFB3BA', '#FFDFBA', '#FFFFBA', '#BAFFC9', '#BAE1FF', '#C9C9FF', '#E0BBE4'];
 
 const CreateMessageModal = ({ onClose, onSubmit, initialData = null }) => {
     const [recipient, setRecipient] = useState('');
@@ -93,7 +93,7 @@ const CreateMessageModal = ({ onClose, onSubmit, initialData = null }) => {
                     </div>
 
                     <div className="form-group">
-                        <label>배경 색상</label>
+                        <label>텍스트 색상</label>
                         <div className="color-picker">
                             {COLORS.map((c) => (
                                 <button

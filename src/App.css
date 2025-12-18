@@ -28,7 +28,14 @@
   letter-spacing: -0.5px;
 }
 
-.add-btn {
+.header-buttons {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.add-btn,
+.my-messages-btn {
   font-family: var(--font-favorite);
   background: linear-gradient(90deg, #ff69b4, #87ceeb);
   color: white;
@@ -37,11 +44,20 @@
   font-weight: 600;
   transition: transform 0.2s, box-shadow 0.2s;
   box-shadow: 0 4px 15px rgba(255, 105, 180, 0.4);
+  border: none;
+  cursor: pointer;
+  font-size: 0.95rem;
 }
 
-.add-btn:hover {
+.add-btn:hover,
+.my-messages-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(106, 17, 203, 0.6);
+}
+
+.my-messages-btn {
+  background: linear-gradient(90deg, #87ceeb, #9370db);
+  box-shadow: 0 4px 15px rgba(135, 206, 235, 0.4);
 }
 
 .main-board {

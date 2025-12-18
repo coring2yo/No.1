@@ -6,10 +6,11 @@ const MessageCard = ({ message, onDelete, onEdit, currentUser }) => {
     const isAuthor = currentUser && currentUser === author;
 
     return (
-        <div
-            className="message-card animate-fade-in"
-            style={{ backgroundColor: color || '#fff' }}
-        >
+        <div className="message-card animate-fade-in">
+            <div className="balloon-background">
+                <img src="/heart-balloon.png" alt="heart balloon" className="balloon-image" />
+            </div>
+
             {isAuthor && (
                 <div className="card-actions">
                     <button
@@ -29,25 +30,14 @@ const MessageCard = ({ message, onDelete, onEdit, currentUser }) => {
                 </div>
             )}
 
-            {image && (
-                <div className="card-image">
-                    <img src={image} alt="attached" />
-                </div>
-            )}
-
-            <div
-                className="bubble-tail"
-                style={{ borderTopColor: color || '#fff' }}
-            ></div>
-
             <div className="card-content">
-                <p className="recipient" style={{ fontWeight: 'bold', marginBottom: '8px', color: '#555' }}>
+                <p className="recipient" style={{ fontWeight: 'bold', marginBottom: '8px', color: color || '#555' }}>
                     To. {message.recipient || 'Everyone'}
                 </p>
-                <p className="message-text">{text}</p>
+                <p className="message-text" style={{ color: color || '#555' }}>{text}</p>
 
                 <div className="card-footer">
-                    <span className="author">From. {author}</span>
+                    <span className="author" style={{ color: color || 'rgba(0, 0, 0, 0.5)' }}>From. {author}</span>
                 </div>
             </div>
         </div>

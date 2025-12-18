@@ -1,15 +1,33 @@
 .message-card {
-    border-radius: 50% 50% 50% 50%;
-    box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.15),
-        inset 0 -20px 30px rgba(255, 255, 255, 0.4),
-        inset 0 20px 30px rgba(255, 255, 255, 0.6);
+    position: relative;
+    width: 400px;
+    aspect-ratio: 1 / 1.2;
     overflow: visible;
     transition: transform 0.3s ease;
-    position: relative;
-    aspect-ratio: 1 / 1.15;
     display: flex;
     flex-direction: column;
+    filter: drop-shadow(0 20px 35px rgba(0, 0, 0, 0.18));
+}
+
+.balloon-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.balloon-image {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
 }
 
 .message-card:hover {
@@ -18,78 +36,55 @@
     cursor: pointer;
 }
 
-/* Balloon string (ribbon) */
+/* Hide the ribbon tail since it's part of the image */
 .bubble-tail {
-    position: absolute;
-    bottom: -40px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 2px;
-    height: 40px;
-    background: linear-gradient(to bottom,
-        rgba(200, 200, 200, 0.8) 0%,
-        rgba(200, 200, 200, 0.4) 100%);
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-}
-
-/* Balloon knot */
-.bubble-tail::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 8px;
-    height: 8px;
-    background: rgba(180, 180, 180, 0.9);
-    border-radius: 50%;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    display: none;
 }
 
 .card-image {
-    flex-shrink: 0;
-    border-radius: 50% 50% 0 0;
-    overflow: hidden;
-}
-
-.card-image img {
-    width: 100%;
-    height: 120px;
-    display: block;
-    object-fit: cover;
+    display: none;
 }
 
 .card-content {
-    padding: 15px 20px;
-    flex: 1;
+    padding: 100px 110px 160px 110px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    overflow: hidden;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    min-height: 500px;
 }
 
 .message-text {
     font-family: var(--font-hand);
-    font-size: 1.2rem;
-    line-height: 1.4;
-    color: #333;
-    margin-bottom: 10px;
+    font-size: 1.3rem;
+    line-height: 1.5;
+    color: #555;
+    margin-bottom: 15px;
     white-space: pre-wrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+    max-width: 300px;
 }
 
 .card-footer {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     color: rgba(0, 0, 0, 0.5);
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
     padding-top: 8px;
+    max-width: 300px;
+    width: 100%;
+}
+
+.recipient {
+    font-weight: bold;
+    margin-bottom: 12px;
+    color: #555;
+    font-size: 1rem;
+    max-width: 300px;
 }
 
 .author {
@@ -99,13 +94,13 @@
 /* Action Buttons */
 .card-actions {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 20px;
+    right: 60px;
     display: flex;
-    gap: 6px;
+    gap: 8px;
     opacity: 0.7;
     transition: opacity 0.2s ease-in-out;
-    z-index: 10;
+    z-index: 2;
 }
 
 .message-card:hover .card-actions {
@@ -113,19 +108,19 @@
 }
 
 .action-btn {
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(255, 255, 255, 0.9);
     border: none;
     border-radius: 50%;
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    font-size: 1rem;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    font-size: 1.1rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
     transition: transform 0.1s, background 0.1s;
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(5px);
 }
 
 .action-btn:hover {
