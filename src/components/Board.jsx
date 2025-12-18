@@ -12,9 +12,9 @@ const Board = ({ messages, onDelete, onEdit, currentUser }) => {
     const randomizedMessages = useMemo(() => {
         return messages.map((msg, index) => {
             // Distribute cards randomly across the full width
-            // Use 15% to 85% range to prevent cards from being cut off at edges
-            // This accounts for the card width (400px) and translateX(-50%)
-            const leftPosition = 15 + (Math.random() * 70); // 15% to 85%
+            // Use 25% to 75% range to prevent cards from being cut off at edges
+            // This accounts for the card width (400px) and translate(-50%)
+            const leftPosition = 25 + (Math.random() * 50); // 25% to 75%
 
             return {
                 ...msg,

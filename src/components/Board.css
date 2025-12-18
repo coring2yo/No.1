@@ -39,7 +39,7 @@
 
 @keyframes floatUp {
     0% {
-        transform: translateY(0);
+        transform: translate(-50%, 0);
         opacity: 0;
     }
 
@@ -48,7 +48,7 @@
     }
 
     100% {
-        transform: translateY(-120vh);
+        transform: translate(-50%, -120vh);
         /* Move way up */
         opacity: 1;
     }
