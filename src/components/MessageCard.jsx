@@ -28,7 +28,7 @@ const MessageCard = ({ message, onDelete, onEdit, currentUser }) => {
                     <p className="message-text" style={{ color: color || '#555' }}>{text}</p>
 
                     <div className="card-footer">
-                        <span className="author" style={{ color: color || 'rgba(0, 0, 0, 0.5)' }}>From. {author}</span>
+                        <span className="author" style={{ color: color || 'rgba(0, 0, 0, 0.5)' }}>From. {message.display_name || author}</span>
                     </div>
                 </div>
             </div>

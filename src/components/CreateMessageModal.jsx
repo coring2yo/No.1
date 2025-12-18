@@ -5,6 +5,7 @@ const COLORS = ['#FFFFFF', '#FFB3BA', '#FFDFBA', '#FFFFBA', '#BAFFC9', '#BAE1FF'
 
 const CreateMessageModal = ({ onClose, onSubmit, initialData = null }) => {
     const [recipient, setRecipient] = useState('');
+    const [displayName, setDisplayName] = useState('');
     const [text, setText] = useState('');
     const [color, setColor] = useState(COLORS[0]);
     const [image, setImage] = useState(null);
@@ -13,6 +14,7 @@ const CreateMessageModal = ({ onClose, onSubmit, initialData = null }) => {
     useEffect(() => {
         if (initialData) {
             setRecipient(initialData.recipient || '');
+            setDisplayName(initialData.display_name || '');
             setText(initialData.text || '');
             setColor(initialData.color || COLORS[0]);
             setImage(initialData.image || null);
@@ -32,12 +34,13 @@ const CreateMessageModal = ({ onClose, onSubmit, initialData = null }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!text.trim() || !recipient.trim()) return;
+        if (!text.trim() || !recipient.trim() || !displayName.trim()) return;
 
         const messageData = {
             id: initialData ? initialData.id : Date.now(),
             text,
             recipient,
+            displayName,
             author: initialData?.author || '', // Will be replaced with IP in App.jsx
             color,
             image,
@@ -64,6 +67,17 @@ const CreateMessageModal = ({ onClose, onSubmit, initialData = null }) => {
                             value={recipient}
                             onChange={(e) => setRecipient(e.target.value)}
                             placeholder="받는 사람 이름"
+                            required
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label>From. (보내는 사람)</label>
+                        <input
+                            type="text"
+                            value={displayName}
+                            onChange={(e) => setDisplayName(e.target.value)}
+                            placeholder="보내는 사람 이름"
                             required
                         />
                     </div>

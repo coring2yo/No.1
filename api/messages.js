@@ -14,12 +14,21 @@ async function initDatabase() {
         text TEXT NOT NULL,
         recipient VARCHAR(255) NOT NULL,
         author VARCHAR(255) NOT NULL,
+        display_name VARCHAR(255),
         color VARCHAR(50),
         image TEXT,
         timestamp BIGINT NOT NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `;
+
+        // Add display_name column if it doesn't exist
+        try {
+            await sql`ALTER TABLE messages ADD COLUMN IF NOT EXISTS display_name VARCHAR(255)`;
+        } catch (e) {
+            // Column might already exist, ignore error
+        }
+
         dbInitialized = true;
         console.log('Database initialized successfully');
     } catch (error) {
@@ -34,10 +43,10 @@ async function getAllMessages() {
 }
 
 async function createMessage(message) {
-    const { text, recipient, author, color, image, timestamp } = message;
+    const { text, recipient, author, displayName, color, image, timestamp } = message;
     const { rows } = await sql`
-    INSERT INTO messages (text, recipient, author, color, image, timestamp)
-    VALUES (${text}, ${recipient}, ${author}, ${color}, ${image}, ${timestamp})
+    INSERT INTO messages (text, recipient, author, display_name, color, image, timestamp)
+    VALUES (${text}, ${recipient}, ${author}, ${displayName}, ${color}, ${image}, ${timestamp})
     RETURNING *
   `;
     return rows[0];
