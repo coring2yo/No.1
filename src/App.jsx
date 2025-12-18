@@ -151,14 +151,12 @@ function App() {
           >
             + 메시지 남기기
           </button>
-          {currentUser && (
-            <button
-              className="my-messages-btn"
-              onClick={() => setIsMyMessagesModalOpen(true)}
-            >
-              내 메시지
-            </button>
-          )}
+          <button
+            className="my-messages-btn"
+            onClick={() => setIsMyMessagesModalOpen(true)}
+          >
+            내 메시지
+          </button>
         </div>
       </header>
 
