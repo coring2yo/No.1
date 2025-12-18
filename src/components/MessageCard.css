@@ -65,7 +65,7 @@
     font-size: 1.3rem;
     line-height: 1.5;
     color: #555;
-    margin-bottom: 15px;
+    margin-bottom: 18px;
     white-space: pre-wrap;
     word-wrap: break-word;
     max-width: 300px;
@@ -84,15 +84,15 @@
 
 .recipient {
     font-weight: bold;
-    margin-bottom: 12px;
+    margin-bottom: 18px;
     color: #555;
     font-size: 1rem;
     max-width: 300px;
 }
 
 .message-image-container {
-    margin: 15px auto;
-    max-width: 240px;
+    margin: 20px auto;
+    max-width: 280px;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -102,7 +102,7 @@
 .message-image {
     width: 100%;
     height: auto;
-    max-height: 300px;
+    max-height: 350px;
     object-fit: contain;
 }
 
