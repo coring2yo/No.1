@@ -13,15 +13,23 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Load messages from API and current user from localStorage on mount
+  // Load messages from API and get user's IP address
   useEffect(() => {
     fetchMessages();
-
-    const savedUser = localStorage.getItem('rolling_paper_current_user');
-    if (savedUser) {
-      setCurrentUser(savedUser);
-    }
+    fetchUserIP();
   }, []);
+
+  const fetchUserIP = async () => {
+    try {
+      const response = await fetch('/api/get-ip');
+      if (response.ok) {
+        const data = await response.json();
+        setCurrentUser(data.ip);
+      }
+    } catch (err) {
+      console.error('Error fetching IP:', err);
+    }
+  };
 
   const fetchMessages = async () => {
     try {
@@ -41,16 +49,16 @@ function App() {
 
   const addMessage = async (newMessage) => {
     try {
-      // Set current user if not already set
-      if (!currentUser) {
-        setCurrentUser(newMessage.author);
-        localStorage.setItem('rolling_paper_current_user', newMessage.author);
-      }
+      // Use IP address as author
+      const messageWithIP = {
+        ...newMessage,
+        author: currentUser || newMessage.author
+      };
 
       const response = await fetch('/api/messages', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newMessage),
+        body: JSON.stringify(messageWithIP),
       });
 
       if (!response.ok) throw new Error('Failed to create message');

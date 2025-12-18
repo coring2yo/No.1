@@ -1,18 +1,7 @@
-import { useState } from 'react';
 import './MyMessagesModal.css';
 
 const MyMessagesModal = ({ onClose, messages, currentUser, onEdit, onDelete }) => {
-    const [authorName, setAuthorName] = useState(currentUser || '');
-    const [isAuthorSet, setIsAuthorSet] = useState(!!currentUser);
-
-    const myMessages = messages.filter(msg => msg.author === authorName);
-
-    const handleSubmitAuthor = (e) => {
-        e.preventDefault();
-        if (authorName.trim()) {
-            setIsAuthorSet(true);
-        }
-    };
+    const myMessages = messages.filter(msg => msg.author === currentUser);
 
     return (
         <div className="modal-overlay" onClick={onClose}>
@@ -23,30 +12,13 @@ const MyMessagesModal = ({ onClose, messages, currentUser, onEdit, onDelete }) =
                 </div>
 
                 <div className="my-messages-list">
-                    {!isAuthorSet ? (
-                        <div className="author-input-container">
-                            <p style={{ marginBottom: '16px', color: '#666' }}>작성자 이름을 입력하세요</p>
-                            <form onSubmit={handleSubmitAuthor}>
-                                <input
-                                    type="text"
-                                    value={authorName}
-                                    onChange={(e) => setAuthorName(e.target.value)}
-                                    placeholder="작성자 이름"
-                                    className="author-input"
-                                    autoFocus
-                                />
-                                <button type="submit" className="author-submit-btn">확인</button>
-                            </form>
+                    {!currentUser ? (
+                        <div className="empty-state">
+                            <p>IP 주소를 가져오는 중입니다...</p>
                         </div>
                     ) : myMessages.length === 0 ? (
                         <div className="empty-state">
                             <p>작성한 메시지가 없습니다.</p>
-                            <button
-                                className="change-author-btn"
-                                onClick={() => setIsAuthorSet(false)}
-                            >
-                                다른 이름으로 조회
-                            </button>
                         </div>
                     ) : (
                         myMessages.map((message) => (

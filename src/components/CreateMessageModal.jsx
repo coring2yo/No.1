@@ -5,7 +5,6 @@ const COLORS = ['#FFFFFF', '#FFB3BA', '#FFDFBA', '#FFFFBA', '#BAFFC9', '#BAE1FF'
 
 const CreateMessageModal = ({ onClose, onSubmit, initialData = null }) => {
     const [recipient, setRecipient] = useState('');
-    const [author, setAuthor] = useState('');
     const [text, setText] = useState('');
     const [color, setColor] = useState(COLORS[0]);
     const [image, setImage] = useState(null);
@@ -14,7 +13,6 @@ const CreateMessageModal = ({ onClose, onSubmit, initialData = null }) => {
     useEffect(() => {
         if (initialData) {
             setRecipient(initialData.recipient || '');
-            setAuthor(initialData.author || '');
             setText(initialData.text || '');
             setColor(initialData.color || COLORS[0]);
             setImage(initialData.image || null);
@@ -34,13 +32,13 @@ const CreateMessageModal = ({ onClose, onSubmit, initialData = null }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!text.trim() || !author.trim() || !recipient.trim()) return;
+        if (!text.trim() || !recipient.trim()) return;
 
         const messageData = {
             id: initialData ? initialData.id : Date.now(),
             text,
             recipient,
-            author,
+            author: initialData?.author || '', // Will be replaced with IP in App.jsx
             color,
             image,
             timestamp: initialData ? initialData.timestamp : Date.now(),
@@ -66,17 +64,6 @@ const CreateMessageModal = ({ onClose, onSubmit, initialData = null }) => {
                             value={recipient}
                             onChange={(e) => setRecipient(e.target.value)}
                             placeholder="받는 사람 이름"
-                            required
-                        />
-                    </div>
-
-                    <div className="form-group">
-                        <label>From. (보내는 사람)</label>
-                        <input
-                            type="text"
-                            value={author}
-                            onChange={(e) => setAuthor(e.target.value)}
-                            placeholder="보내는 사람 이름"
                             required
                         />
                     </div>
