@@ -88,7 +88,7 @@
 
 .message-image-container {
     margin: 12px auto;
-    max-width: 220px;
+    max-width: 100%;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -98,7 +98,7 @@
 .message-image {
     width: 100%;
     height: auto;
-    max-height: 200px;
+    max-height: 400px;
     object-fit: contain;
 }
 
