@@ -82,14 +82,12 @@
     padding: 12px;
     border: 1px solid #ddd;
     border-radius: 8px;
-    font-size: 1rem;
-    font-family: inherit;
+    font-size: 1.3rem;
+    font-family: var(--font-hand);
     transition: border-color 0.2s;
 }
 
 .form-group textarea {
-    font-family: var(--font-hand);
-    font-size: 1.3rem;
     resize: vertical;
 }
 
@@ -130,6 +128,8 @@
     cursor: pointer;
     background: rgba(255, 255, 255, 0.5);
     transition: border-color 0.2s;
+    font-family: var(--font-hand);
+    font-size: 1.3rem;
 }
 
 .image-upload-box:hover {
