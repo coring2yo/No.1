@@ -43,11 +43,7 @@ const MyMessagesModal = ({ onClose, messages, currentUser, onEdit, onDelete }) =
                                     </button>
                                     <button
                                         className="delete-btn-small"
-                                        onClick={() => {
-                                            if (window.confirm('정말 삭제하시겠습니까?')) {
-                                                onDelete(message.id);
-                                            }
-                                        }}
+                                        onClick={() => onDelete(message.id)}
                                     >
                                         삭제
                                     </button>
