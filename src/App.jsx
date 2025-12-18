@@ -151,7 +151,7 @@ function App() {
   return (
     <div className="app-container">
       <header className="app-header glass-panel">
-        <h1>1인 창업가 개발부트캠프 No.1기의 소중한 Rolling Paper</h1>
+        <h1>1인 창업가 개발부트캠프 No.1기의 소중한 Balloon Paper</h1>
         <div className="header-buttons">
           <button
             className="add-btn"
