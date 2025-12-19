@@ -11,18 +11,16 @@ const Board = ({ messages, onDelete, onEdit, currentUser, isPaused }) => {
 
     const randomizedMessages = useMemo(() => {
         const laneCount = 5;
-        const lanes = [15, 32, 50, 68, 85]; // Horizontal positions in %
-        const duration = 25; // Consistent speed for all balloons (seconds)
-        const verticalSpacing = 8; // Average vertical spacing in seconds
+        const lanes = [15, 32, 50, 68, 85]; // 5개 레인을 그대로 유지
+        const duration = 60; // 속도를 늦추어 더 길고 우아한 이동 (25s -> 60s)
+        const verticalSpacing = 45; // 전역 수직 간격을 대폭 확대 (20s -> 45s)
 
         return messages.map((msg, index) => {
             const laneIndex = index % laneCount;
             const indexInLane = Math.floor(index / laneCount);
 
-            // Calculate delay to space cards vertically within the same lane
-            // Add a small random jitter (±1s) to make it look natural but stay separated
-            const jitter = (Math.random() * 2) - 1;
-            const animationDelay = -(indexInLane * verticalSpacing + jitter);
+            // 수직 간격을 일정하게 유지하여 겹침 방지
+            const animationDelay = -(indexInLane * verticalSpacing);
 
             return {
                 ...msg,

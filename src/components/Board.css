@@ -52,8 +52,8 @@
     }
 
     100% {
-        transform: translate(-50%, -120vh);
-        /* Move way up */
+        transform: translate(-50%, -200vh);
+        /* 이동 거리 대폭 확장 */
         opacity: 1;
     }
 }

@@ -1,7 +1,7 @@
 .message-card {
     position: relative;
-    width: 400px;
-    min-height: 480px;
+    width: 320px;
+    min-height: 400px;
     overflow: visible;
     transition: transform 0.3s ease;
     display: flex;
@@ -59,7 +59,7 @@
     text-align: center;
     z-index: 1;
     width: 100%;
-    padding: 0 80px;
+    padding: 0 45px;
 }
 
 .message-text {
@@ -70,7 +70,7 @@
     margin-bottom: 18px;
     white-space: pre-wrap;
     word-wrap: break-word;
-    max-width: 300px;
+    max-width: 230px;
 }
 
 .card-footer {
@@ -80,7 +80,7 @@
     font-size: 0.85rem;
     color: rgba(0, 0, 0, 0.5);
     padding-top: 8px;
-    max-width: 300px;
+    max-width: 230px;
     width: 100%;
 }
 
@@ -89,7 +89,7 @@
     margin-bottom: 18px;
     color: #555;
     font-size: 1rem;
-    max-width: 300px;
+    max-width: 230px;
 }
 
 .message-image-container {
@@ -156,4 +156,3 @@
 .action-btn.edit-btn {
     color: #3498db;
 }
-
