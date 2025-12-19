@@ -9,7 +9,7 @@ const MessageViewer = ({ message, onClose }) => {
 
     return createPortal(
         <div className="message-viewer-overlay" onClick={onClose}>
-            <div className="message-viewer-content glass-panel" onClick={(e) => e.stopPropagation()}>
+            <div className="message-viewer-content" onClick={(e) => e.stopPropagation()}>
                 <button className="message-viewer-close" onClick={onClose}>&times;</button>
 
                 <div className="viewer-card-body">
