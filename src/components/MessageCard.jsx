@@ -18,7 +18,7 @@ const MessageCard = ({ message, onDelete, onEdit, currentUser }) => {
                 </div>
 
                 <div className="card-content">
-                    <p className="recipient" style={{ fontWeight: 'bold', marginBottom: '8px', color: color || '#555' }}>
+                    <p className="recipient" style={{ fontWeight: 'bold', marginBottom: '8px', color: color || '#2C3E50' }}>
                         To. {message.recipient || 'Everyone'}
                     </p>
 
@@ -28,7 +28,7 @@ const MessageCard = ({ message, onDelete, onEdit, currentUser }) => {
                         </div>
                     )}
 
-                    <p className="message-text" style={{ color: color || '#555' }}>{text}</p>
+                    <p className="message-text" style={{ color: color || '#2C3E50' }}>{text}</p>
 
                     <div className="card-footer">
                         <span className="author" style={{ color: color || 'rgba(0, 0, 0, 0.5)' }}>From. {message.display_name || author}</span>
