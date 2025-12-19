@@ -61,14 +61,11 @@
 }
 
 .control-btn {
-  font-family: var(--font-favorite);
-  width: 40px;
-  /* 고정 너비 */
-  height: 40px;
-  /* 고정 높이 */
+  font-family: Arial, sans-serif;
+  /* 기호 정렬이 더 일관된 폰트로 변경 */
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
-  /* 원형 버튼 */
-  font-weight: 600;
   border: none;
   cursor: pointer;
   background: white;
@@ -78,8 +75,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.1rem;
-  /* 아이콘 크기 약간 확대 */
+  font-size: 1.2rem;
+  line-height: 1;
 }
 
 .control-btn:hover {
@@ -87,7 +84,13 @@
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
+/* 재생 아이콘(▶)은 시각적으로 왼쪽으로 치우쳐 보일 수 있으므로 미세 조정 */
+.control-btn.playing {
+  padding-left: 2px;
+}
+
 .control-btn.paused {
+  padding-left: 0;
   background: #ff69b4;
   color: white;
 }
