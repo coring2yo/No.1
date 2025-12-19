@@ -11,8 +11,8 @@
 
 .floating-item {
     position: absolute;
-    bottom: -400px;
-    /* Start below the screen */
+    bottom: -1000px;
+    /* 아주 긴 메시지 카드도 화면 아래에서 완전히 숨겨진 채 시작하도록 충분히 낮게 설정 */
     width: 400px;
     max-width: 85vw;
     /* Fixed width for bubbles */
@@ -47,13 +47,17 @@
         opacity: 0;
     }
 
-    10% {
+    5% {
+        opacity: 1;
+    }
+
+    95% {
         opacity: 1;
     }
 
     100% {
-        transform: translate(-50%, -200vh);
-        /* 이동 거리 대폭 확장 */
-        opacity: 1;
+        transform: translate(-50%, -300vh);
+        /* 이동 거리를 대폭 확장하여 아주 긴 카드도 위쪽으로 완전히 사라지도록 함 */
+        opacity: 0;
     }
 }

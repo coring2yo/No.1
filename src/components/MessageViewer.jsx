@@ -4,8 +4,10 @@ import './MessageViewer.css';
 const MessageViewer = ({ message, onClose }) => {
     const { text, recipient, display_name, author, image, color } = message;
 
-    // 텍스트 색상이 하얀색(#FFFFFF)인 경우 확대했을 때 분홍색(#FF69B4)으로 보이도록 조정
-    const displayColor = (color && color.toUpperCase() === '#FFFFFF') ? '#FF69B4' : color;
+    // 텍스트 색상이 하얀색, 노란색, 연노란색인 경우 확대했을 때 분홍색(#FF69B4)으로 보이도록 조정
+    const normalizedColor = color?.toUpperCase();
+    const yellowColors = ['#FFFFFF', '#FFFF00', '#FFFFE0', '#FFFFCC', '#FFFF99', '#FFEB3B', '#FDD835'];
+    const displayColor = (normalizedColor && yellowColors.includes(normalizedColor)) ? '#FF69B4' : color;
 
     return createPortal(
         <div className="message-viewer-overlay" onClick={onClose}>
