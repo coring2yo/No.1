@@ -6,7 +6,11 @@ const MessageCard = ({ message, onDelete, onEdit, currentUser }) => {
     const { text, author, image, color } = message;
     const [isViewerOpen, setIsViewerOpen] = useState(false);
 
-    const handleCardClick = () => {
+    const handleCardClick = (e) => {
+        // 드래그 중이 아닐 때만 뷰어 열기
+        if (e.defaultPrevented) {
+            return;
+        }
         setIsViewerOpen(true);
     };
 

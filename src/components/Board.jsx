@@ -1,13 +1,13 @@
-import { useMemo } from 'react';
+import { useMemo, useState, useRef } from 'react';
 import MessageCard from './MessageCard';
 import './Board.css';
 
 const Board = ({ messages, onDelete, onEdit, currentUser, isPaused }) => {
-    // Memoize the random positions to prevent re-calculation on every render
-    // unless messages change significantly.
-    // Note: If you want truly persistent positions for existing messages when new ones are added,
-    // we would need to store this state in the parent or add it to the message object itself.
-    // For now, we'll generate it on the fly to keep it simple, but use useMemo to stabilize it slightly.
+    const [draggedCard, setDraggedCard] = useState(null);
+    const [cardPositions, setCardPositions] = useState({});
+    const dragStartPos = useRef({ x: 0, y: 0 });
+    const cardStartPos = useRef({ x: 0, y: 0 });
+    const hasDragged = useRef(false);
 
     const randomizedMessages = useMemo(() => {
         const laneCount = 5;
@@ -64,26 +64,85 @@ const Board = ({ messages, onDelete, onEdit, currentUser, isPaused }) => {
         });
     }, [messages]);
 
+    const handleMouseDown = (e, msgId) => {
+        // 버튼이나 클릭 가능한 요소는 드래그 방지
+        if (e.target.closest('button') || e.target.closest('a')) {
+            return;
+        }
+
+        hasDragged.current = false;
+        setDraggedCard(msgId);
+        dragStartPos.current = { x: e.clientX, y: e.clientY };
+
+        const currentPos = cardPositions[msgId] || { x: 0, y: 0 };
+        cardStartPos.current = currentPos;
+    };
+
+    const handleMouseMove = (e) => {
+        if (!draggedCard) return;
+
+        const deltaX = e.clientX - dragStartPos.current.x;
+        const deltaY = e.clientY - dragStartPos.current.y;
+
+        // 5px 이상 움직였을 때만 드래그로 간주
+        if (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5) {
+            hasDragged.current = true;
+        }
+
+        setCardPositions(prev => ({
+            ...prev,
+            [draggedCard]: {
+                x: cardStartPos.current.x + deltaX,
+                y: cardStartPos.current.y + deltaY
+            }
+        }));
+    };
+
+    const handleMouseUp = (e) => {
+        if (hasDragged.current) {
+            // 드래그했으면 클릭 이벤트 방지
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        setDraggedCard(null);
+        hasDragged.current = false;
+    };
+
     if (!messages || messages.length === 0) {
         return <div className="board-sky"></div>;
     }
 
     return (
-        <div className={`board-sky ${isPaused ? 'is-paused' : ''}`}>
-            {randomizedMessages.map((msg) => (
-                <div
-                    key={msg.id}
-                    className="floating-item"
-                    style={msg.style}
-                >
-                    <MessageCard
-                        message={msg}
-                        onDelete={onDelete}
-                        onEdit={onEdit}
-                        currentUser={currentUser}
-                    />
-                </div>
-            ))}
+        <div
+            className={`board-sky ${isPaused ? 'is-paused' : ''}`}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseUp}
+        >
+            {randomizedMessages.map((msg) => {
+                const position = cardPositions[msg.id] || { x: 0, y: 0 };
+                const isDragging = draggedCard === msg.id;
+
+                return (
+                    <div
+                        key={msg.id}
+                        className={`floating-item ${isDragging ? 'dragging' : ''}`}
+                        style={{
+                            ...msg.style,
+                            transform: `translate(calc(-50% + ${position.x}px), ${position.y}px)`,
+                            cursor: isDragging ? 'grabbing' : 'grab',
+                        }}
+                        onMouseDown={(e) => handleMouseDown(e, msg.id)}
+                    >
+                        <MessageCard
+                            message={msg}
+                            onDelete={onDelete}
+                            onEdit={onEdit}
+                            currentUser={currentUser}
+                        />
+                    </div>
+                );
+            })}
         </div>
     );
 };

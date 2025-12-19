@@ -20,11 +20,20 @@
     animation-timing-function: linear;
     animation-iteration-count: infinite;
     pointer-events: auto;
-    cursor: pointer;
+    cursor: grab;
     transform: translateX(-50%);
+    transition: transform 0.1s ease-out;
+    user-select: none;
 
     /* Add a slight wiggle for more realism (optional) */
     /* animation-name: floatUp, wiggle; */
+}
+
+.floating-item.dragging {
+    cursor: grabbing;
+    z-index: 1000;
+    animation-play-state: paused;
+    transition: none;
 }
 
 .board-sky.is-paused .floating-item {
