@@ -27,6 +27,10 @@
     /* animation-name: floatUp, wiggle; */
 }
 
+.board-sky.is-paused .floating-item {
+    animation-play-state: paused;
+}
+
 .empty-board {
     text-align: center;
     padding: 60px;

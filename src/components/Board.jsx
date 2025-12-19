@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import MessageCard from './MessageCard';
 import './Board.css';
 
-const Board = ({ messages, onDelete, onEdit, currentUser }) => {
+const Board = ({ messages, onDelete, onEdit, currentUser, isPaused }) => {
     // Memoize the random positions to prevent re-calculation on every render
     // unless messages change significantly.
     // Note: If you want truly persistent positions for existing messages when new ones are added,
@@ -40,7 +40,7 @@ const Board = ({ messages, onDelete, onEdit, currentUser }) => {
     }
 
     return (
-        <div className="board-sky">
+        <div className={`board-sky ${isPaused ? 'is-paused' : ''}`}>
             {randomizedMessages.map((msg) => (
                 <div
                     key={msg.id}

@@ -10,6 +10,7 @@ function App() {
   const [isMyMessagesModalOpen, setIsMyMessagesModalOpen] = useState(false);
   const [editingMessage, setEditingMessage] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
+  const [isPaused, setIsPaused] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -168,6 +169,13 @@ function App() {
           >
             내 메시지
           </button>
+          <button
+            className={`control-btn ${isPaused ? 'paused' : 'playing'}`}
+            onClick={() => setIsPaused(!isPaused)}
+            title={isPaused ? "재생" : "멈춤"}
+          >
+            {isPaused ? '▶ 재생' : '⏸ 멈춤'}
+          </button>
         </div>
       </header>
 
@@ -177,6 +185,7 @@ function App() {
           onDelete={deleteMessage}
           onEdit={handleOpenEditModal}
           currentUser={currentUser}
+          isPaused={isPaused}
         />
       </main>
 
