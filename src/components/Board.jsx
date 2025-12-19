@@ -10,18 +10,26 @@ const Board = ({ messages, onDelete, onEdit, currentUser }) => {
     // For now, we'll generate it on the fly to keep it simple, but use useMemo to stabilize it slightly.
 
     const randomizedMessages = useMemo(() => {
+        const laneCount = 5;
+        const lanes = [15, 32, 50, 68, 85]; // Horizontal positions in %
+        const duration = 25; // Consistent speed for all balloons (seconds)
+        const verticalSpacing = 8; // Average vertical spacing in seconds
+
         return messages.map((msg, index) => {
-            // Distribute cards randomly across the full width
-            // Use 25% to 75% range to prevent cards from being cut off at edges
-            // This accounts for the card width (400px) and translate(-50%)
-            const leftPosition = 25 + (Math.random() * 50); // 25% to 75%
+            const laneIndex = index % laneCount;
+            const indexInLane = Math.floor(index / laneCount);
+
+            // Calculate delay to space cards vertically within the same lane
+            // Add a small random jitter (±1s) to make it look natural but stay separated
+            const jitter = (Math.random() * 2) - 1;
+            const animationDelay = -(indexInLane * verticalSpacing + jitter);
 
             return {
                 ...msg,
                 style: {
-                    left: `${leftPosition}%`,
-                    animationDuration: `${Math.random() * 15 + 15}s`, // 15-30s duration
-                    animationDelay: `-${Math.random() * 20}s`, // Start at random points in the cycle
+                    left: `${lanes[laneIndex]}%`,
+                    animationDuration: `${duration}s`,
+                    animationDelay: `${animationDelay}s`,
                 }
             };
         });
