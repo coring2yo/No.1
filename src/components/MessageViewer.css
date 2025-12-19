@@ -80,6 +80,11 @@
     font-size: 1.5rem;
     font-weight: 700;
     margin-bottom: 24px;
+    padding: 0 40px;
+    /* 닫기 버튼과 겹치지 않도록 사이드 여백 확보 */
+    word-break: break-word;
+    /* 긴 텍스트 줄바꿈 처리 */
+    width: 100%;
 }
 
 .viewer-image-container {
