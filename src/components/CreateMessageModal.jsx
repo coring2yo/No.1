@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import './CreateMessageModal.css';
 
-const COLORS = ['#2C3E50', '#E91E63', '#1565C0', '#2E7D32', '#6A1B9A', '#E65100', '#4E342E', '#283593'];
+const COLORS = ['#2C3E50', '#FFFFFF', '#E91E63', '#1565C0', '#2E7D32', '#6A1B9A', '#E65100', '#4E342E', '#283593'];
 
 const CreateMessageModal = ({ onClose, onSubmit, initialData = null }) => {
     const [recipient, setRecipient] = useState('');
