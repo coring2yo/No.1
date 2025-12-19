@@ -172,9 +172,10 @@ function App() {
           <button
             className={`control-btn ${isPaused ? 'paused' : 'playing'}`}
             onClick={() => setIsPaused(!isPaused)}
+            aria-label={isPaused ? "재생" : "멈춤"}
             title={isPaused ? "재생" : "멈춤"}
           >
-            {isPaused ? '▶ 재생' : '⏸ 멈춤'}
+            {isPaused ? '▶' : '⏸'}
           </button>
         </div>
       </header>
